@@ -60,6 +60,11 @@ Practical examples and use cases:
 - **Features**: GET/POST requests, authentication, error handling
 - **Use Cases**: API integration, web scraping, service communication
 
+#### [Web Scraper Tool](WEB_SCRAPER_TOOL.md)
+- **Purpose**: Intelligent web crawling and content extraction
+- **Features**: Multi-URL processing, CSS/XPath selectors, link discovery, rate limiting
+- **Use Cases**: Web scraping, content extraction, recursive crawling, data mining
+
 #### [Website Monitor Tool](WEBSITE_MONITOR_TOOL.md)
 - **Purpose**: Monitor website availability and performance
 - **Features**: URL monitoring, status checking, alerting

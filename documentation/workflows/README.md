@@ -229,6 +229,7 @@ The `samples/` directory contains working workflow examples:
 
 - `agentic_sbom_project.json` - Complete SBOM analysis workflow
 - `true_recursive_crawler.json` - True recursive web crawler that visits multiple pages and extracts content from each
+- `agentic_sbom_project.json` - Complete SBOM analysis workflow with email processing
 
 ### Customization
 
