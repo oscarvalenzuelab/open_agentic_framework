@@ -235,11 +235,17 @@ class WorkflowManager:
     ) -> str:
         """Execute an agent step in the workflow"""
         agent_name = step["name"]
-        task = step.get("task", "Complete the assigned task")
+        
+        # Extract task from parameters if available, otherwise from step directly
+        parameters = step.get("parameters", {})
+        task = parameters.get("task") or step.get("task", "Complete the assigned task")
+        
+        # Extract context from parameters if available
+        agent_context = parameters.get("context", context)
         
         logger.info(f"Executing agent {agent_name} with task: {task}")
         
-        return await self.agent_manager.execute_agent(agent_name, task, context)
+        return await self.agent_manager.execute_agent(agent_name, task, agent_context)
     
     async def _execute_tool_step(
         self, 

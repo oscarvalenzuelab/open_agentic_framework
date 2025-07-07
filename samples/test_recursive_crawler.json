@@ -1,0 +1,48 @@
+{
+  "name": "test_recursive_crawler",
+  "description": "Test recursive web crawler that demonstrates true recursive crawling with a site that has clear blog structure",
+  "steps": [
+    {
+      "type": "tool",
+      "name": "web_scraper",
+      "tool": "web_scraper",
+      "parameters": {
+        "urls": ["https://quotes.toscrape.com"],
+        "selectors": {
+          "css": {
+            "quote_links": "a[href*='/page/'], .next a",
+            "quotes": ".quote .text",
+            "authors": ".quote .author"
+          }
+        },
+        "extract_links": true,
+        "link_filters": {
+          "include_patterns": ["/page/"],
+          "exclude_patterns": ["#", "javascript:", "mailto:", "tel:"],
+          "same_domain_only": true
+        },
+        "rate_limit": {
+          "requests_per_second": 1
+        }
+      }
+    },
+    {
+      "type": "agent",
+      "name": "blog_title_analyzer",
+      "parameters": {
+        "task": "Analyze the crawled website data from quotes.toscrape.com. This is a test site for web scraping. Review the content and extracted links. Provide a comprehensive analysis including: 1) What type of website this appears to be, 2) Main content found (quotes, authors), 3) Available page links and their URLs, 4) Analysis of the site structure and content patterns, 5) How this demonstrates recursive crawling capabilities. Structure the output clearly with sections for each analysis area. If page links were discovered, list them with their URLs."
+      }
+    },
+    {
+      "type": "tool",
+      "name": "file_vault",
+      "tool": "file_vault",
+      "parameters": {
+        "action": "write",
+        "filename": "test_recursive_analysis_{{timestamp}}.json",
+        "content": "{{blog_title_analyzer}}",
+        "overwrite": true
+      }
+    }
+  ]
+} 

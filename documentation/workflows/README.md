@@ -10,6 +10,9 @@ A comprehensive workflow for processing email-based SBOM analysis requests, incl
 ### 2. [Web Crawling Workflows](./WEB_CRAWLING_WORKFLOWS.md)
 Multi-step web crawling workflows with intelligent agent review and analysis capabilities.
 
+### 3. [Recursive Web Crawler Example](./RECURSIVE_WEB_CRAWLER_EXAMPLE.md)
+A comprehensive example of a recursive web crawler that extracts blog post links and titles from ovalenzuela.com.
+
 ## Workflow Categories
 
 ### Email Processing
@@ -25,6 +28,11 @@ Multi-step web crawling workflows with intelligent agent review and analysis cap
   - Agent review and quality assessment
   - Pattern recognition and content analysis
   - Rate limiting and respectful crawling
+- **Recursive Blog Crawler**: Complete recursive crawling example
+  - Starts with main site and discovers blog links
+  - Follows links to individual blog posts
+  - Extracts titles and metadata from each post
+  - Creates comprehensive analysis reports
 
 ## Workflow Structure
 

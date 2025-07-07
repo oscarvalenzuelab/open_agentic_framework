@@ -356,3 +356,62 @@ The workflow can be customized for specific use cases:
 4. **Social Media**: Extract posts and user interactions (with appropriate permissions)
 
 See the workflow files for complete configuration examples and modify them according to your specific needs. 
+
+## Testing Agents Directly
+
+While agents are often used as part of a workflow, you can also test them independently. This is useful for development, debugging, or evaluating agent behavior with custom input.
+
+### 1. Test via API
+
+You can execute an agent directly using a POST request to the agent's execute endpoint. For example, to test the `web_crawling_review_agent`:
+
+```bash
+curl -X POST http://localhost:8000/agents/web_crawling_review_agent/execute \
+  -H "Content-Type: application/json" \
+  -d '{
+    "task": "Review and summarize the following crawled data.",
+    "context": {
+      "crawled_data": {
+        "pages": [
+          {"url": "https://quotes.toscrape.com/", "content": "Sample content from page 1"},
+          {"url": "https://quotes.toscrape.com/page/2/", "content": "Sample content from page 2"}
+        ]
+      }
+    }
+  }'
+```
+- Replace the `task` and `context` with the data you want the agent to process.
+- The response will contain the agent's analysis or summary.
+
+### 2. Test via Web UI
+
+1. Open your browser and go to [http://localhost:8000/ui](http://localhost:8000/ui).
+2. Navigate to the **Agents** section.
+3. Select the agent you want to test (e.g., `web_crawling_review_agent`).
+4. Enter the task and context in the provided form.
+5. Click **Execute** and review the output in the UI.
+
+### 3. Test as Part of a Workflow
+
+If your agent is part of a workflow (such as the multi-step crawling workflow), you can test the entire workflow, and the agent will be invoked as part of the process:
+
+```bash
+curl -X POST "http://localhost:8000/workflows/Multi-Step%20Crawling%20with%20Agent%20Review/execute" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "context": {
+      "url": "https://quotes.toscrape.com/"
+    }
+  }'
+```
+
+### 4. Debugging and Logs
+
+- Check logs for agent execution details:
+  ```bash
+  docker-compose logs -f agentic-ai
+  # or, if running locally:
+  tail -f logs/agentic-ai.log
+  ```
+
+**Tip:** Use realistic sample data in the `context` to see how the agent handles real-world scenarios. Try different LLM models by updating the agent’s configuration for more advanced analysis. 
