@@ -1,198 +1,323 @@
-# Workflows Documentation
+# Workflows
 
-This section contains documentation for workflow templates and examples available in the Open Agentic Framework. Workflows are the core building blocks that combine multiple tools and agents to create automated processes.
+This section contains documentation for the various workflows available in the Open Agentic Framework.
 
-## 📋 Available Workflows
+## Available Workflows
 
-### 🔄 Email-Based Workflows
+### 1. [Email Reply Workflow](./EMAIL_REPLY_WORKFLOW.md)
+A comprehensive workflow for processing email-based SBOM analysis requests, including data extraction, analysis, and automated email responses.
 
-#### [Email Reply Workflow](EMAIL_REPLY_WORKFLOW.md)
-Automated email processing and response system:
-- Email parsing and analysis
-- Automated response generation
-- Attachment handling
-- Reply sending with results
+### 2. [Web Crawling Workflows](./WEB_CRAWLING_WORKFLOWS.md)
+Multi-step web crawling workflows with intelligent agent review and analysis capabilities.
 
-## 🚀 Creating New Workflows
+## Workflow Categories
 
-### 1. Workflow Structure
-Workflows are defined as JSON configurations with the following structure:
+### Email Processing
+- **Email Reply Workflow**: Complete email-based SBOM analysis pipeline
+  - Email parsing and data extraction
+  - SBOM analysis and processing
+  - Automated email response generation
+  - File attachment handling
+
+### Web Crawling
+- **Multi-Step Crawling with Agent Review**: Intelligent web crawling with AI-powered analysis
+  - Multi-step crawling with controlled resource usage
+  - Agent review and quality assessment
+  - Pattern recognition and content analysis
+  - Rate limiting and respectful crawling
+
+## Workflow Structure
+
+All workflows in the framework follow a consistent structure:
 
 ```json
 {
-  "name": "My Workflow",
-  "description": "Description of what this workflow does",
-  "version": "1.0.0",
+  "name": "Workflow Name",
+  "description": "Workflow description",
   "steps": [
     {
-      "id": "step1",
-      "name": "First Step",
+      "step": 1,
+      "name": "Step Name",
+      "type": "tool|agent|workflow",
       "tool": "tool_name",
-      "config": {
-        "param1": "value1",
-        "param2": "value2"
+      "parameters": {
+        "param1": "value1"
       },
-      "input": {
-        "source": "workflow_input",
-        "field": "data_field"
-      }
-    },
-    {
-      "id": "step2",
-      "name": "Second Step",
-      "tool": "another_tool",
-      "config": {},
-      "input": {
-        "source": "step_output",
-        "step": "step1",
-        "field": "result"
-      }
+      "output_key": "step_output"
     }
   ]
 }
 ```
 
-### 2. Workflow Categories
+### Step Types
 
-#### Communication Workflows
-- Email processing and responses
-- *Future: Slack notifications, SMS alerts, webhook integrations*
+- **tool**: Execute a specific tool with parameters
+- **agent**: Execute an AI agent with a task
+- **workflow**: Execute a nested workflow
 
-#### Data Processing Workflows
-- File processing and analysis
-- *Future: ETL pipelines, data validation, report generation*
+### Parameter Substitution
 
-#### Monitoring Workflows
-- System and service monitoring
-- *Future: Performance tracking, alert management, log analysis*
+Workflows support parameter substitution using `{{variable_name}}` syntax:
 
-#### AI/ML Workflows
-- Model training and inference
-- *Future: Data preprocessing, model evaluation, automated ML*
-
-#### Security Workflows
-- Threat detection and response
-- *Future: Vulnerability scanning, access control, audit logging*
-
-### 3. Workflow Design Principles
-
-#### Modularity
-- Break complex workflows into smaller, reusable steps
-- Use clear input/output contracts between steps
-- Design steps to be independently testable
-
-#### Error Handling
-- Include error handling at each step
-- Provide fallback mechanisms
-- Log errors with sufficient context
-
-#### Performance
-- Consider parallel execution where possible
-- Optimize data flow between steps
-- Monitor workflow execution times
-
-#### Security
-- Validate all inputs
-- Sanitize data between steps
-- Use secure configuration management
-
-### 4. Workflow Development Process
-
-1. **Define Requirements**: What should the workflow accomplish?
-2. **Design Steps**: Break down into logical steps
-3. **Choose Tools**: Select appropriate tools for each step
-4. **Configure**: Set up tool parameters and data flow
-5. **Test**: Validate with sample data
-6. **Document**: Create comprehensive documentation
-7. **Deploy**: Make available for use
-
-### 5. Testing Workflows
-
-#### Unit Testing
-- Test individual steps with mock data
-- Validate input/output contracts
-- Test error conditions
-
-#### Integration Testing
-- Test complete workflow execution
-- Validate end-to-end functionality
-- Test with real data samples
-
-#### Performance Testing
-- Measure execution times
-- Test with large datasets
-- Identify bottlenecks
-
-## 📁 Workflow Templates
-
-### Basic Email Processing
 ```json
 {
-  "name": "Basic Email Processing",
-  "steps": [
-    {
-      "id": "parse_email",
-      "tool": "email_parser",
-      "input": {"source": "workflow_input"}
-    },
-    {
-      "id": "process_content",
-      "tool": "data_extractor",
-      "input": {"source": "step_output", "step": "parse_email"}
-    }
-  ]
+  "parameters": {
+    "url": "{{input_url}}",
+    "data": "{{previous_step_output}}"
+  }
 }
 ```
 
-### File Processing Pipeline
+## Creating Custom Workflows
+
+### 1. Define Workflow Structure
+
+Create a JSON file with the required structure:
+
 ```json
 {
-  "name": "File Processing Pipeline",
+  "name": "My Custom Workflow",
+  "description": "Description of what this workflow does",
   "steps": [
     {
-      "id": "store_file",
-      "tool": "file_vault",
-      "input": {"source": "workflow_input"}
-    },
-    {
-      "id": "extract_data",
-      "tool": "data_extractor",
-      "input": {"source": "step_output", "step": "store_file"}
+      "step": 1,
+      "name": "Initial Step",
+      "type": "tool",
+      "tool": "web_scraper",
+      "parameters": {
+        "urls": "{{input_url}}"
+      },
+      "output_key": "scraped_data"
     }
   ]
 }
 ```
 
-## 🔗 Related Documentation
+### 2. Register the Workflow
 
-- **[Tools Documentation](../tools/)** - Available tools for workflows
-- **[Architecture Overview](../architecture/)** - Understanding workflow execution
-- **[Getting Started](../getting-started/QUICK_START.md)** - Basic workflow setup
+```bash
+curl -X POST http://localhost:8000/workflows \
+  -H "Content-Type: application/json" \
+  -d @my_custom_workflow.json
+```
 
-## 🤝 Contributing Workflows
+### 3. Execute the Workflow
 
-When contributing new workflows:
+```bash
+curl -X POST "http://localhost:8000/workflows/My%20Custom%20Workflow/execute" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "context": {
+      "input_url": "https://example.com"
+    }
+  }'
+```
 
-1. **Follow Standards**: Use consistent naming and structure
-2. **Document**: Include comprehensive documentation
-3. **Test**: Provide test cases and examples
-4. **Optimize**: Consider performance and resource usage
-5. **Secure**: Follow security best practices
+## Best Practices
 
-## 📊 Workflow Monitoring
+### 1. Error Handling
 
-### Metrics to Track
-- Execution time per step
-- Success/failure rates
-- Resource usage
-- Error patterns
+Include error handling in your workflows:
 
-### Logging
-- Step execution logs
-- Input/output data (sanitized)
-- Error details
-- Performance metrics
+```json
+{
+  "step": 2,
+  "name": "Error Handling",
+  "type": "tool",
+  "tool": "json_validator",
+  "parameters": {
+    "action": "validate",
+    "json_data": "{{step1_output}}"
+  },
+  "on_error": {
+    "action": "continue",
+    "fallback_value": "{}"
+  }
+}
+```
 
----
+### 2. Data Validation
 
-*For workflow development questions, check the main [documentation index](../README.md) or explore the [tools documentation](../tools/).* 
+Validate data between steps:
+
+```json
+{
+  "step": 3,
+  "name": "Validate Data",
+  "type": "tool",
+  "tool": "json_validator",
+  "parameters": {
+    "action": "validate",
+    "json_data": "{{processed_data}}",
+    "schema_type": "custom",
+    "custom_schema": {
+      "type": "object",
+      "required": ["title", "content"]
+    }
+  }
+}
+```
+
+### 3. Resource Management
+
+Use appropriate tools for resource management:
+
+```json
+{
+  "step": 1,
+  "name": "Rate Limited Request",
+  "type": "tool",
+  "tool": "rate_limiter",
+  "parameters": {
+    "action": "acquire",
+    "resource": "api_calls",
+    "max_requests": 10,
+    "time_window": 60
+  }
+}
+```
+
+## Testing Workflows
+
+### 1. Unit Testing
+
+Test individual steps:
+
+```bash
+# Test a specific tool
+curl -X POST http://localhost:8000/tools/web_scraper/execute \
+  -H "Content-Type: application/json" \
+  -d '{"urls": ["https://example.com"]}'
+```
+
+### 2. Integration Testing
+
+Test complete workflows:
+
+```bash
+# Execute workflow with test data
+curl -X POST "http://localhost:8000/workflows/Test%20Workflow/execute" \
+  -H "Content-Type: application/json" \
+  -d @test_data.json
+```
+
+### 3. Monitoring
+
+Monitor workflow execution:
+
+```bash
+# View workflow logs
+docker-compose logs -f agentic-ai
+
+# Check workflow status
+curl http://localhost:8000/workflows
+```
+
+## Workflow Examples
+
+### Sample Workflows
+
+The `samples/` directory contains working workflow examples:
+
+- `agentic_sbom_project.json` - Complete SBOM analysis workflow
+- `multi_step_with_agent_review.json` - Multi-step web crawling with agent review
+- `web_crawling_review_agent.json` - Agent for reviewing crawled content
+
+### Customization
+
+Modify the sample workflows to fit your specific needs:
+
+1. **Change Parameters**: Update URLs, selectors, and configuration
+2. **Add Steps**: Insert additional processing steps
+3. **Modify Tools**: Use different tools for specific tasks
+4. **Adjust Agents**: Configure agents with different models or prompts
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Step Dependencies**: Ensure previous steps complete before dependent steps
+2. **Parameter Names**: Use exact parameter names as defined in tool documentation
+3. **Data Types**: Ensure data types match tool expectations
+4. **Resource Limits**: Monitor memory and CPU usage for large workflows
+
+### Debug Mode
+
+Enable debug logging:
+
+```bash
+# Set debug level
+export LOG_LEVEL=DEBUG
+
+# Restart services
+docker-compose restart agentic-ai
+```
+
+## Integration
+
+Workflows integrate with all framework components:
+
+- **Tools**: Use any available tool in workflow steps
+- **Agents**: Execute AI agents for complex decision making
+- **Memory**: Store and retrieve data between workflow runs
+- **File Vault**: Save results and intermediate data
+- **Email Tools**: Send notifications and results
+
+## Performance Optimization
+
+### 1. Parallel Execution
+
+Use parallel steps where possible:
+
+```json
+{
+  "steps": [
+    {
+      "step": 1,
+      "name": "Parallel Processing",
+      "type": "parallel",
+      "steps": [
+        {"tool": "web_scraper", "parameters": {"urls": ["url1"]}},
+        {"tool": "web_scraper", "parameters": {"urls": ["url2"]}}
+      ]
+    }
+  ]
+}
+```
+
+### 2. Caching
+
+Cache expensive operations:
+
+```json
+{
+  "step": 1,
+  "name": "Cached Operation",
+  "type": "tool",
+  "tool": "file_vault",
+  "parameters": {
+    "action": "get",
+    "key": "cached_data"
+  },
+  "fallback": {
+    "tool": "expensive_operation",
+    "parameters": {...}
+  }
+}
+```
+
+### 3. Resource Limits
+
+Set appropriate resource limits:
+
+```json
+{
+  "resource_limits": {
+    "max_memory": "2GB",
+    "max_cpu": "50%",
+    "timeout": 300
+  }
+}
+```
+
+For detailed information about specific workflows, see the individual documentation files in this directory. 
