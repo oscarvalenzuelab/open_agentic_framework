@@ -7,10 +7,13 @@ This section contains documentation for the various workflows available in the O
 ### 1. [Email Reply Workflow](./EMAIL_REPLY_WORKFLOW.md)
 A comprehensive workflow for processing email-based SBOM analysis requests, including data extraction, analysis, and automated email responses.
 
-### 2. [Web Crawling Workflows](./WEB_CRAWLING_WORKFLOWS.md)
+### 2. [SBOM Email Workflow](./SBOM_EMAIL_WORKFLOW.md)
+Complete SBOM analysis workflow with email processing, license compliance analysis, and automated legal notices generation.
+
+### 3. [Web Crawling Workflows](./WEB_CRAWLING_WORKFLOWS.md)
 Multi-step web crawling workflows with intelligent agent review and analysis capabilities.
 
-### 3. [Recursive Web Crawler Example](./RECURSIVE_WEB_CRAWLER_EXAMPLE.md)
+### 4. [Recursive Web Crawler Example](./RECURSIVE_WEB_CRAWLER_EXAMPLE.md)
 A comprehensive example of a recursive web crawler that extracts blog post links and titles from ovalenzuela.com.
 
 ## Workflow Categories
