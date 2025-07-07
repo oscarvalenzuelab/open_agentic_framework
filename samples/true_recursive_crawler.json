@@ -1,0 +1,83 @@
+{
+  "name": "true_recursive_crawler",
+  "description": "True recursive web crawler that visits discovered pages and extracts content from each page",
+  "steps": [
+    {
+      "type": "tool",
+      "name": "web_scraper",
+      "tool": "web_scraper",
+      "parameters": {
+        "urls": ["https://quotes.toscrape.com"],
+        "selectors": {
+          "css": {
+            "quotes": ".quote .text",
+            "authors": ".quote .author",
+            "tags": ".quote .tag"
+          }
+        },
+        "extract_links": true,
+        "link_filters": {
+          "include_patterns": ["/page/"],
+          "exclude_patterns": ["#", "javascript:", "mailto:", "tel:"],
+          "same_domain_only": true
+        },
+        "rate_limit": {
+          "requests_per_second": 1
+        }
+      }
+    },
+    {
+      "type": "tool",
+      "name": "data_extractor",
+      "tool": "data_extractor",
+      "parameters": {
+        "source_data": "{{web_scraper}}",
+        "extractions": [
+          {
+            "name": "page_urls",
+            "type": "path",
+            "query": "discovered_links"
+          }
+        ]
+      }
+    },
+    {
+      "type": "tool",
+      "name": "web_scraper_pages",
+      "tool": "web_scraper",
+      "parameters": {
+        "urls": ["https://quotes.toscrape.com/page/2/", "https://quotes.toscrape.com/page/3/"],
+        "selectors": {
+          "css": {
+            "quotes": ".quote .text",
+            "authors": ".quote .author",
+            "tags": ".quote .tag",
+            "page_title": "title"
+          }
+        },
+        "extract_metadata": true,
+        "rate_limit": {
+          "requests_per_second": 1
+        }
+      }
+    },
+    {
+      "type": "agent",
+      "name": "blog_title_analyzer",
+      "parameters": {
+        "task": "Analyze the recursive crawling results from quotes.toscrape.com. You have data from the initial page crawl and additional pages that were visited recursively. Create a comprehensive analysis including: 1) Total number of pages visited, 2) Content extracted from each page (quotes, authors, tags), 3) Analysis of the pagination structure, 4) Comparison of content across different pages, 5) Demonstration of how true recursive crawling works by visiting multiple pages. Structure the output clearly with sections for each analysis area. Include specific quotes and authors found on different pages."
+      }
+    },
+    {
+      "type": "tool",
+      "name": "file_vault",
+      "tool": "file_vault",
+      "parameters": {
+        "action": "write",
+        "filename": "true_recursive_analysis_{{timestamp}}.json",
+        "content": "{{blog_title_analyzer}}",
+        "overwrite": true
+      }
+    }
+  ]
+} 

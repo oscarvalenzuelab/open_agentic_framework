@@ -12,6 +12,7 @@ from .website_monitor import WebsiteMonitorTool
 from .json_validator import JsonValidatorTool
 from .email_data_converter import EmailDataConverterTool
 from .rate_limiter import RateLimiter, RateLimitManager, rate_limit_manager
+from .web_scraper import WebScraperTool
 
 __all__ = [
     'BaseTool',
@@ -27,5 +28,6 @@ __all__ = [
     'EmailDataConverterTool',
     'RateLimiter',
     'RateLimitManager',
-    'rate_limit_manager'
+    'rate_limit_manager',
+    'WebScraperTool'
 ]
