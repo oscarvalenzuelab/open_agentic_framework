@@ -99,8 +99,9 @@ docker-compose logs model-setup
 ## Multi-Step Crawling with Agent Review
 
 **Files**: 
-- `samples/multi_step_with_agent_review.json` - Main workflow
-- `samples/web_crawling_review_agent.json` - Review agent
+- `samples/true_recursive_crawler.json` - True recursive crawler workflow
+- `samples/test_recursive_crawler.json` - Test recursive crawler
+- `samples/recursive_blog_crawler.json` - Blog-specific crawler
 
 This workflow demonstrates the recommended pattern for web crawling: multi-step crawling followed by intelligent agent review and analysis.
 
@@ -128,7 +129,7 @@ This workflow demonstrates the recommended pattern for web crawling: multi-step 
 # Create the agent via API
 curl -X POST http://localhost:8000/agents \
   -H "Content-Type: application/json" \
-  -d @samples/web_crawling_review_agent.json
+  -d @samples/blog_title_analyzer.json
 
 # Update to use ChatGPT-3.5-turbo (if available)
 curl -X PUT http://localhost:8000/agents/web_crawling_review_agent \
@@ -142,7 +143,7 @@ curl -X PUT http://localhost:8000/agents/web_crawling_review_agent \
 # Create the workflow via API
 curl -X POST http://localhost:8000/workflows \
   -H "Content-Type: application/json" \
-  -d @samples/multi_step_with_agent_review.json
+  -d @samples/true_recursive_crawler.json
 ```
 
 #### 3. Execute the Workflow

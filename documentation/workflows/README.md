@@ -228,8 +228,9 @@ curl http://localhost:8000/workflows
 The `samples/` directory contains working workflow examples:
 
 - `agentic_sbom_project.json` - Complete SBOM analysis workflow
-- `multi_step_with_agent_review.json` - Multi-step web crawling with agent review
-- `web_crawling_review_agent.json` - Agent for reviewing crawled content
+- `true_recursive_crawler.json` - True recursive web crawler that visits multiple pages
+- `test_recursive_crawler.json` - Test recursive crawler for demonstration
+- `recursive_blog_crawler.json` - Blog-specific recursive crawler
 
 ### Customization
 
