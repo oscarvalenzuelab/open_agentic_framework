@@ -434,10 +434,7 @@ The recursive web crawler has been successfully implemented and tested with the 
 - **Model**: Uses `smollm:135m` for efficient analysis
 - **Tools**: data_extractor, file_vault, json_validator
 
-#### 3. **Test Recursive Crawler** (`test_recursive_crawler.json`)
-- **Status**: ✅ Successfully implemented and tested
-- **Functionality**: Demonstrates link discovery and content extraction
-- **Test Results**: Successfully discovered 30+ links including pagination
+
 
 ### Key Achievements
 
@@ -465,10 +462,6 @@ The recursive web crawler has been successfully implemented and tested with the 
 
 #### Successful Test Execution
 ```bash
-# Test Recursive Crawler
-curl -X POST http://localhost:8000/workflows/test_recursive_crawler/execute
-# Result: Successfully discovered 30+ links, extracted quotes and authors
-
 # True Recursive Crawler  
 curl -X POST http://localhost:8000/workflows/true_recursive_crawler/execute
 # Result: Successfully visited 3 pages, extracted unique content from each

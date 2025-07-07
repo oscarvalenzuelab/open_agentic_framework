@@ -99,9 +99,7 @@ docker-compose logs model-setup
 ## Multi-Step Crawling with Agent Review
 
 **Files**: 
-- `samples/true_recursive_crawler.json` - True recursive crawler workflow
-- `samples/test_recursive_crawler.json` - Test recursive crawler
-- `samples/recursive_blog_crawler.json` - Blog-specific crawler
+- `samples/true_recursive_crawler.json` - True recursive crawler workflow that visits multiple pages
 
 This workflow demonstrates the recommended pattern for web crawling: multi-step crawling followed by intelligent agent review and analysis.
 
