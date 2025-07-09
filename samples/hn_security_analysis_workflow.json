@@ -1,0 +1,115 @@
+{
+  "name": "HN Security Analysis Workflow",
+  "description": "Extract comments from HN articles and perform security-focused analysis",
+  "type": "workflow",
+  "steps": [
+    {
+      "type": "tool",
+      "name": "load_rss_data",
+      "description": "Load previously stored RSS data",
+      "tool": "file_vault",
+      "parameters": {
+        "action": "read",
+        "filename": "hn_rss_data.json"
+      },
+      "output_key": "rss_data"
+    },
+    {
+      "type": "tool",
+      "name": "extract_article_data",
+      "description": "Extract article data from RSS feed",
+      "tool": "data_extractor",
+      "parameters": {
+        "source_data": "{{rss_data}}",
+        "extractions": [
+          {
+            "name": "articles",
+            "type": "path",
+            "query": "$.results[?(@.feed_url=='https://hnrss.org/frontpage')].items[*]"
+          },
+          {
+            "name": "article_titles",
+            "type": "path",
+            "query": "$.results[?(@.feed_url=='https://hnrss.org/frontpage')].items[*].title"
+          },
+          {
+            "name": "article_urls",
+            "type": "path",
+            "query": "$.results[?(@.feed_url=='https://hnrss.org/frontpage')].items[*].article_url"
+          },
+          {
+            "name": "article_points",
+            "type": "path",
+            "query": "$.results[?(@.feed_url=='https://hnrss.org/frontpage')].items[*].points"
+          }
+        ]
+      },
+      "output_key": "extracted_data"
+    },
+    {
+      "type": "tool",
+      "name": "extract_comments",
+      "description": "Extract comments from RSS feed data",
+      "tool": "data_extractor",
+      "parameters": {
+        "source_data": "{{rss_data}}",
+        "extractions": [
+          {
+            "name": "comments",
+            "type": "path",
+            "query": "$.results[?(@.feed_url=='https://hnrss.org/frontpage?link=comments')].items[*]"
+          },
+          {
+            "name": "comment_texts",
+            "type": "path",
+            "query": "$.results[?(@.feed_url=='https://hnrss.org/frontpage?link=comments')].items[*].title"
+          },
+          {
+            "name": "comment_authors",
+            "type": "path",
+            "query": "$.results[?(@.feed_url=='https://hnrss.org/frontpage?link=comments')].items[*].author"
+          }
+        ]
+      },
+      "output_key": "comment_data"
+    },
+    {
+      "type": "agent",
+      "name": "Security Analyzer Agent",
+      "description": "Perform security-focused analysis of articles and comments",
+      "agent": "Security Analyzer Agent",
+      "parameters": {
+        "articles": "{{extracted_data.article_titles}}",
+        "article_urls": "{{extracted_data.article_urls}}",
+        "comments": "{{comment_data}}",
+        "analysis_focus": "software_security",
+        "output_format": "security_report"
+      },
+      "output_key": "security_report"
+    },
+    {
+      "type": "tool",
+      "name": "store_security_report",
+      "description": "Store the security analysis report",
+      "tool": "file_vault",
+      "parameters": {
+        "action": "write",
+        "content": "{{security_report}}",
+        "filename": "hn_security_report.json",
+        "overwrite": true
+      },
+      "output_key": "stored_report"
+    }
+  ],
+  "output_format": {
+    "type": "object",
+    "properties": {
+      "success": {"type": "boolean"},
+      "total_articles": {"type": "integer"},
+      "total_comments": {"type": "integer"},
+      "security_issues_found": {"type": "integer"},
+      "security_report": {"type": "object"},
+      "stored_report_file": {"type": "string"}
+    }
+  }
+} 
