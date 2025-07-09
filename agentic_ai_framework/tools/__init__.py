@@ -13,6 +13,8 @@ from .json_validator import JsonValidatorTool
 from .email_data_converter import EmailDataConverterTool
 from .rate_limiter import RateLimiter, RateLimitManager, rate_limit_manager
 from .web_scraper import WebScraperTool
+from .rss_feed_parser import RSSFeedParserTool
+from .data_serializer import DataSerializerTool
 
 __all__ = [
     'BaseTool',
@@ -29,5 +31,7 @@ __all__ = [
     'RateLimiter',
     'RateLimitManager',
     'rate_limit_manager',
-    'WebScraperTool'
+    'WebScraperTool',
+    'RSSFeedParserTool',
+    'DataSerializerTool'
 ]

@@ -82,6 +82,11 @@ Practical examples and use cases:
 - **Features**: Schema validation, data formatting, error reporting
 - **Use Cases**: API testing, data quality assurance
 
+#### [Data Serializer Tool](DATA_SERIALIZER_TOOL.md)
+- **Purpose**: Convert data between Python objects and JSON strings
+- **Features**: Bidirectional conversion, custom formatting, error handling
+- **Use Cases**: Workflow data processing, cross-tool communication, data storage
+
 ### 🔧 Utility Tools
 
 #### [Rate Limiter Utility](RATE_LIMITER_UTILITY.md)

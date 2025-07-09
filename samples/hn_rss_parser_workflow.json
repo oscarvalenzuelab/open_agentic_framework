@@ -1,0 +1,120 @@
+{
+  "name": "HN RSS Parser Workflow",
+  "description": "Parse Hacker News RSS feeds, serialize data, and extract key information",
+  "output_spec": {
+    "extractions": [
+      {
+        "name": "first_title",
+        "type": "path",
+        "query": "extracted_data.extracted_data.first_title",
+        "default": "",
+        "format": "text"
+      },
+      {
+        "name": "first_link",
+        "type": "path",
+        "query": "extracted_data.extracted_data.first_link",
+        "default": "",
+        "format": "text"
+      },
+      {
+        "name": "total_feeds",
+        "type": "path",
+        "query": "extracted_data.extracted_data.total_feeds",
+        "default": "0",
+        "format": "number"
+      },
+      {
+        "name": "total_items",
+        "type": "path",
+        "query": "extracted_data.extracted_data.total_items",
+        "default": "0",
+        "format": "number"
+      }
+    ]
+  },
+  "steps": [
+    {
+      "type": "tool",
+      "name": "rss_feed_parser",
+      "description": "Parse Hacker News RSS feeds to extract article data",
+      "tool": "rss_feed_parser",
+      "parameters": {
+        "feed_urls": [
+          "https://hnrss.org/frontpage",
+          "https://hnrss.org/frontpage?link=comments"
+        ],
+        "max_items": 15,
+        "include_content": false,
+        "rate_limit": 1
+      },
+      "context_key": "rss_data"
+    },
+    {
+      "type": "tool",
+      "name": "file_vault",
+      "description": "Store the parsed RSS data for further processing",
+      "tool": "file_vault",
+      "parameters": {
+        "action": "write",
+        "content": "{{rss_data}}",
+        "filename": "hn_rss_data.json",
+        "overwrite": true
+      },
+      "context_key": "stored_data"
+    },
+    {
+      "type": "tool",
+      "name": "data_serializer",
+      "description": "Serialize the RSS data to JSON string for data extraction",
+      "tool": "data_serializer",
+      "parameters": {
+        "action": "serialize",
+        "data": "{{rss_data}}",
+        "indent": 2,
+        "ensure_ascii": false
+      },
+      "context_key": "rss_data_json"
+    },
+    {
+      "type": "tool",
+      "name": "data_extractor",
+      "description": "Extract key information from the RSS data",
+      "tool": "data_extractor",
+      "parameters": {
+        "source_data": "{{rss_data_json.result}}",
+        "extractions": [
+          {
+            "name": "first_title",
+            "type": "path",
+            "query": "results.0.items.0.title",
+            "default": "",
+            "format": "text"
+          },
+          {
+            "name": "first_link",
+            "type": "path",
+            "query": "results.0.items.0.link",
+            "default": "",
+            "format": "text"
+          },
+          {
+            "name": "total_feeds",
+            "type": "path",
+            "query": "total_feeds",
+            "default": "0",
+            "format": "number"
+          },
+          {
+            "name": "total_items",
+            "type": "path",
+            "query": "results.0.total_items",
+            "default": "0",
+            "format": "number"
+          }
+        ]
+      },
+      "context_key": "extracted_data"
+    }
+  ]
+} 
