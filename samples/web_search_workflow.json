@@ -1,0 +1,41 @@
+{
+  "name": "web_search_workflow",
+  "description": "Perform a web search using http_client and return the results.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Search query"
+      }
+    },
+    "required": ["query"]
+  },
+  "steps": [
+    {
+      "type": "tool",
+      "name": "search_api_call",
+      "tool": "http_client",
+      "parameters": {
+        "url": "https://httpbin.org/get",
+        "method": "GET",
+        "params": {
+          "q": "{{query}}",
+          "limit": 5
+        }
+      },
+      "context_key": "search_results"
+    }
+  ],
+  "output_spec": {
+    "extractions": [
+      {
+        "name": "search_args",
+        "type": "path",
+        "query": "search_results.content.args",
+        "default": "{}",
+        "format": "object"
+      }
+    ]
+  }
+} 

@@ -19,7 +19,7 @@ A sample framework implementation for creating and orchestrating AI agents, feat
 - **Website Monitoring** - Real-world example with email alerting capabilities
 - **Production Ready** - Docker deployment with comprehensive monitoring
 - **Interactive API Documentation** - Complete Swagger UI with live testing
-- **🌐 Web UI** - Modern web interface for easy management and monitoring
+- **Web UI** - Modern web interface for easy management and monitoring
 
 ## Quick Start
 
