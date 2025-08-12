@@ -10,7 +10,7 @@ sqlalchemy==2.0.23
 alembic==1.12.1
 
 # HTTP client for API calls and LLM provider integrations
-aiohttp==3.10.11
+aiohttp==3.12.14
 requests==2.32.4
 
 # Data validation and serialization
