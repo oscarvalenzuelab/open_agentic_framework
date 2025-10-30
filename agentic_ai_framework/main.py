@@ -233,9 +233,12 @@ async def startup_event():
             logger.info("Clearing all agent memory on startup...")
             memory_manager.clear_all_agent_memory()
         
-        # Initialize LLM providers
-        await llm_manager.initialize()
-        
+        # Initialize LLM providers (non-blocking - warn if no providers available)
+        provider_init_success = await llm_manager.initialize()
+        if not provider_init_success:
+            logger.warning("No LLM providers were successfully initialized. The app will run but agent execution will fail.")
+            # Don't crash - allow the app to start so users can configure providers
+
         # Load and register tools
         tool_manager.discover_and_register_tools()
         
