@@ -160,21 +160,21 @@ const App = () => {
                 }, [
                     React.createElement('a', {
                         key: 'docs',
-                        href: 'http://localhost:8000/docs',
+                        href: '/docs',
                         target: '_blank',
                         className: 'btn btn-secondary',
                         title: 'Open API Documentation'
                     }, [
-                        React.createElement('i', { 
+                        React.createElement('i', {
                             key: 'icon',
-                            className: 'fas fa-book' 
+                            className: 'fas fa-book'
                         }),
                         ' API Docs'
                     ]),
                     React.createElement('button', {
                         key: 'health',
                         className: 'btn btn-secondary',
-                        onClick: () => window.open('http://localhost:8000/health', '_blank'),
+                        onClick: () => window.open('/health', '_blank'),
                         title: 'Check System Health'
                     }, [
                         React.createElement('i', { 

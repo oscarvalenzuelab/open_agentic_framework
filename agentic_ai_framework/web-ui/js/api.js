@@ -1,8 +1,9 @@
 // js/api.js - Enhanced API Client with Recurring Task Support
 
 class AgenticAPI {
-    constructor(baseURL = 'http://localhost:8000') {
-        this.baseURL = baseURL;
+    constructor(baseURL = null) {
+        // Automatically detect the correct base URL
+        this.baseURL = baseURL || window.location.origin;
     }
 
     async request(endpoint, options = {}) {
@@ -32,7 +33,7 @@ class AgenticAPI {
             console.error('API Error:', error);
             
             if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                throw new Error('Cannot connect to API server. Make sure the Open Agentic Framework is running on http://localhost:8000');
+                throw new Error(`Cannot connect to API server at ${this.baseURL}. Make sure the Open Agentic Framework is running.`);
             }
             
             throw error;

@@ -9,12 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Ensure web-ui directory exists and has correct permissions
-RUN mkdir -p data logs tools web-ui && \
-    chmod -R 755 web-ui
-
-# Verify web-ui files are present
-RUN ls -la web-ui/ || echo "Warning: web-ui directory is empty"
+RUN mkdir -p data logs tools
 
 EXPOSE 8000
 
