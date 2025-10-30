@@ -15,23 +15,38 @@ services:
     # For production, use: professional-s (2 vCPU, 4GB RAM)
 
     envs:
+      # Ollama settings (disable since Ollama doesn't run in App Platform)
+      - key: OLLAMA_ENABLED
+        value: "false"
       - key: OLLAMA_URL
         value: "http://localhost:11434"
+
+      # OpenAI settings (primary provider for App Platform)
+      - key: OPENAI_ENABLED
+        value: "true"
+      - key: OPENAI_API_KEY
+        type: SECRET
+        value: "${OPENAI_API_KEY}"
+      - key: OPENAI_DEFAULT_MODEL
+        value: "gpt-3.5-turbo"
+
+      # Default provider configuration
+      - key: DEFAULT_LLM_PROVIDER
+        value: "openai"
       - key: DEFAULT_MODEL
-        value: "granite3.2:2b"
+        value: "gpt-3.5-turbo"
+
+      # Application settings
       - key: DATABASE_PATH
         value: "/app/data/agentic_ai.db"
       - key: API_HOST
         value: "0.0.0.0"
       - key: API_PORT
         value: "8000"
-      - key: OPENAI_ENABLED
-        value: "true"
-      - key: OPENAI_API_KEY
-        type: SECRET
-        value: "your-openai-api-key"
-      - key: DEFAULT_LLM_PROVIDER
-        value: "openai"
+
+      # Fallback settings
+      - key: LLM_FALLBACK_ENABLED
+        value: "false"
 
     health_check:
       http_path: /health
