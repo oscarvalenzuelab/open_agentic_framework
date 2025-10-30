@@ -63,8 +63,9 @@ class Config:
         providers = {}
         
         # Ollama Provider Configuration
-        # Check if Ollama should be enabled (respect environment variable)
-        ollama_enabled_env = os.getenv("OLLAMA_ENABLED", "true")
+        # Default to false for cloud deployments (Ollama requires local installation)
+        # Can be explicitly enabled with OLLAMA_ENABLED=true for local deployments
+        ollama_enabled_env = os.getenv("OLLAMA_ENABLED", "false")
         ollama_enabled = ollama_enabled_env.lower() == "true"
         if ollama_enabled:
             providers["ollama"] = {

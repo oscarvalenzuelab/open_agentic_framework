@@ -6,6 +6,8 @@ services:
     ports:
       - "8000:8000"  # API and Web UI available at http://localhost:8000
     environment:
+      # Ollama Configuration (enabled for local development with docker-compose)
+      - OLLAMA_ENABLED=true
       - OLLAMA_URL=http://ollama:11434
       - DEFAULT_MODEL=granite3.2:2b
       - DATABASE_PATH=/app/data/agentic_ai.db
@@ -14,12 +16,12 @@ services:
       - MAX_AGENT_ITERATIONS=10
       - SCHEDULER_INTERVAL=60
       - TOOLS_DIRECTORY=tools
-      # OpenAI Configuration (enable this for OpenAI usage)
-      - OPENAI_ENABLED=true
+      # OpenAI Configuration (set OPENAI_API_KEY to use OpenAI)
+      - OPENAI_ENABLED=${OPENAI_ENABLED:-false}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - OPENAI_BASE_URL=https://api.openai.com/v1
       - OPENAI_DEFAULT_MODEL=gpt-3.5-turbo
-      - DEFAULT_LLM_PROVIDER=openai
+      - DEFAULT_LLM_PROVIDER=${DEFAULT_LLM_PROVIDER:-ollama}
       # Bedrock Configuration (disabled by default)
       - BEDROCK_ENABLED=false
       - BEDROCK_REGION=us-east-1
