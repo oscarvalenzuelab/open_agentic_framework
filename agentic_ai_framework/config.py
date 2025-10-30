@@ -43,8 +43,13 @@ class Config:
         self.log_format = os.getenv("LOG_FORMAT", "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         
         # Backward compatibility properties
-        self.ollama_url = self.llm_config["providers"]["ollama"]["url"]
-        self.default_model = self.llm_config["default_model"]
+        # Handle missing Ollama provider gracefully
+        if "ollama" in self.llm_config.get("providers", {}):
+            self.ollama_url = self.llm_config["providers"]["ollama"]["url"]
+        else:
+            self.ollama_url = os.getenv("OLLAMA_URL", "http://localhost:11434")
+
+        self.default_model = self.llm_config.get("default_model", "gpt-3.5-turbo")
     
     def _build_llm_config(self) -> Dict[str, Any]:
         """Build LLM provider configuration from environment variables"""
@@ -58,7 +63,9 @@ class Config:
         providers = {}
         
         # Ollama Provider Configuration
-        ollama_enabled = os.getenv("OLLAMA_ENABLED", "true").lower() == "true"
+        # Check if Ollama should be enabled (respect environment variable)
+        ollama_enabled_env = os.getenv("OLLAMA_ENABLED", "true")
+        ollama_enabled = ollama_enabled_env.lower() == "true"
         if ollama_enabled:
             providers["ollama"] = {
                 "enabled": True,
