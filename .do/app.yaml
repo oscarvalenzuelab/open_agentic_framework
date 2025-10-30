@@ -1,0 +1,42 @@
+# DigitalOcean App Platform Specification
+name: open-agentic-framework
+region: nyc
+
+services:
+  - name: agentic-ai
+    dockerfile_path: agentic_ai_framework/Dockerfile
+    source_dir: agentic_ai_framework
+    github:
+      branch: main
+      deploy_on_push: true
+    http_port: 8000
+    instance_count: 1
+    instance_size_slug: professional-xs  # 1 vCPU, 2GB RAM
+    # For production, use: professional-s (2 vCPU, 4GB RAM)
+
+    envs:
+      - key: OLLAMA_URL
+        value: "http://localhost:11434"
+      - key: DEFAULT_MODEL
+        value: "granite3.2:2b"
+      - key: DATABASE_PATH
+        value: "/app/data/agentic_ai.db"
+      - key: API_HOST
+        value: "0.0.0.0"
+      - key: API_PORT
+        value: "8000"
+      - key: OPENAI_ENABLED
+        value: "true"
+      - key: OPENAI_API_KEY
+        type: SECRET
+        value: "your-openai-api-key"
+      - key: DEFAULT_LLM_PROVIDER
+        value: "openai"
+
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 60
+      period_seconds: 30
+      timeout_seconds: 10
+      success_threshold: 1
+      failure_threshold: 3
