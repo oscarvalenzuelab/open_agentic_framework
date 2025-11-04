@@ -9,6 +9,7 @@ A sample framework implementation for creating and orchestrating AI agents, feat
 
 ## Features
 
+
 - **AI Agent Management** - Create agents with specific roles, goals, and capabilities
 - **Multi-Provider LLM Support** - Ollama, OpenAI, OpenRouter with automatic fallback
 - **Extensible Tool System** - Built-in tools with plugin architecture for custom integrations
