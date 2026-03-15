@@ -10,7 +10,7 @@ sqlalchemy==2.0.23
 alembic==1.12.1
 
 # HTTP client for API calls and LLM provider integrations
-aiohttp==3.12.14
+aiohttp==3.13.3
 requests==2.32.4
 
 # Data validation and serialization
@@ -19,7 +19,7 @@ pydantic-settings==2.1.0
 jsonschema==4.21.1
 
 # File upload and form handling
-python-multipart==0.0.18
+python-multipart==0.0.22
 
 # Authentication and security (for future use)
 python-jose[cryptography]==3.3.0
@@ -47,7 +47,7 @@ pytest-asyncio==0.21.1
 httpx==0.25.2
 
 # Code quality
-black==24.3.0
+black==26.3.1
 flake8==6.1.0
 isort==5.12.0
 
@@ -55,7 +55,7 @@ isort==5.12.0
 python-dotenv==1.0.0
 
 # JSON handling
-orjson==3.9.15
+orjson==3.11.6
 
 # Date and time utilities
 python-dateutil==2.8.2
