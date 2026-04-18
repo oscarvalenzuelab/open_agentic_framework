@@ -19,7 +19,7 @@ pydantic-settings==2.1.0
 jsonschema==4.21.1
 
 # File upload and form handling
-python-multipart==0.0.22
+python-multipart==0.0.26
 
 # Authentication and security (for future use)
 python-jose[cryptography]==3.3.0
