@@ -707,6 +707,8 @@ Once the framework is running, access the web interface at:
 
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
+Found a bug or have a feature request? Please [open a GitHub issue](https://github.com/oscarvalenzuelab/open_agentic_framework/issues) so we can track and discuss it. For questions or ideas, issues are also the best place to start the conversation.
+
 ### Development Process
 
 1. Fork the repository
