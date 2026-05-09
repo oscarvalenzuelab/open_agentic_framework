@@ -55,7 +55,7 @@ isort==5.12.0
 python-dotenv==1.2.2
 
 # JSON handling
-orjson==3.11.6
+orjson==3.11.9
 
 # Date and time utilities
 python-dateutil==2.8.2
