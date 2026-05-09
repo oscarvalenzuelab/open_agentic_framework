@@ -39,7 +39,7 @@ apscheduler==3.10.4
 croniter>=1.4.0
 
 # Logging and monitoring
-structlog==23.2.0
+structlog==25.5.0
 
 # Development and testing
 pytest==9.0.3
