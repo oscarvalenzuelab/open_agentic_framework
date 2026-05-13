@@ -68,4 +68,4 @@ beautifulsoup4==4.14.3
 lxml==6.1.0
 
 # RSS feed parsing
-feedparser==6.0.10
+feedparser==6.0.12
