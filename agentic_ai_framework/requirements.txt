@@ -33,7 +33,7 @@ aiosmtplib==3.0.1
 # These are built into Python and don't require external packages
 
 # Background task scheduling
-apscheduler==3.10.4
+apscheduler==3.11.2
 
 # NEW: Cron expression support for recurring tasks
 croniter>=1.4.0
