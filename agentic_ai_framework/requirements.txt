@@ -16,7 +16,7 @@ requests==2.32.4
 # Data validation and serialization
 pydantic==2.5.1
 pydantic-settings==2.1.0
-jsonschema==4.21.1
+jsonschema==4.26.0
 
 # File upload and form handling
 python-multipart==0.0.27
