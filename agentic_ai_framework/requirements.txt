@@ -26,7 +26,7 @@ python-jose[cryptography]==3.5.0
 passlib[bcrypt]==1.7.4
 
 # Email functionality
-aiosmtplib==3.0.1
+aiosmtplib==5.1.0
 # Note: POP3 and IMAP functionality uses standard library modules:
 # - poplib (for POP3)
 # - imaplib (for IMAP)
