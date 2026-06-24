@@ -42,7 +42,7 @@ croniter>=1.4.0
 structlog==26.1.0
 
 # Development and testing
-pytest==9.0.3
+pytest==9.1.1
 pytest-asyncio==1.4.0
 httpx==0.28.1
 
