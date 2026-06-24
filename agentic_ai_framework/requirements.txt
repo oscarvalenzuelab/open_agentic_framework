@@ -15,7 +15,7 @@ requests==2.34.2
 
 # Data validation and serialization
 pydantic==2.13.4
-pydantic-settings==2.14.1
+pydantic-settings==2.14.2
 jsonschema==4.26.0
 
 # File upload and form handling
