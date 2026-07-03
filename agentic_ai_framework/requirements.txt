@@ -7,7 +7,7 @@ aiofiles==23.2.1
 
 # Database and ORM
 sqlalchemy==2.0.51
-alembic==1.18.4
+alembic==1.18.5
 
 # HTTP client for API calls and LLM provider integrations
 aiohttp>=3.14.1
