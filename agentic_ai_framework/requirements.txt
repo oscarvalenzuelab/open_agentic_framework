@@ -36,7 +36,7 @@ aiosmtplib==5.1.2
 apscheduler==3.11.3
 
 # NEW: Cron expression support for recurring tasks
-croniter>=1.4.0
+croniter>=6.2.3
 
 # Logging and monitoring
 structlog==26.1.0
