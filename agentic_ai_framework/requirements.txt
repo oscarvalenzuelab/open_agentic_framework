@@ -1,7 +1,7 @@
 # Open Agentic Framework - Python Dependencies (Multi-Provider LLM Support)
 
 # FastAPI and ASGI server
-fastapi==0.139.0
+fastapi==0.139.2
 uvicorn[standard]==0.51.0
 aiofiles==23.2.1
 
