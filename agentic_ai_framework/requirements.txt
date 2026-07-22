@@ -61,7 +61,7 @@ orjson==3.11.9
 python-dateutil==2.9.0.post0
 
 # AWS Bedrock support
-boto3==1.43.38
+boto3==1.43.48
 
 # Web scraping and HTML parsing
 beautifulsoup4==4.15.0
