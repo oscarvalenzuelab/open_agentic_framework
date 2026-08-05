@@ -2,7 +2,7 @@
 
 # FastAPI and ASGI server
 fastapi==0.139.2
-uvicorn[standard]==0.51.0
+uvicorn[standard]==0.52.1
 aiofiles==23.2.1
 
 # Database and ORM
