@@ -6,7 +6,7 @@ uvicorn[standard]==0.51.0
 aiofiles==23.2.1
 
 # Database and ORM
-sqlalchemy==2.0.51
+sqlalchemy==2.0.52
 alembic==1.18.5
 
 # HTTP client for API calls and LLM provider integrations
