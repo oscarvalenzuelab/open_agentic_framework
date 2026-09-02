@@ -52,7 +52,7 @@ flake8==7.3.0
 isort==8.0.1
 
 # Environment variable management
-python-dotenv==1.2.2
+python-dotenv==1.2.3
 
 # JSON handling
 orjson==3.12.0
