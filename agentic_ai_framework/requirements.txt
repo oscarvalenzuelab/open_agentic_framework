@@ -65,7 +65,7 @@ boto3==1.43.83
 
 # Web scraping and HTML parsing
 beautifulsoup4==4.15.0
-lxml==6.1.1
+lxml==6.1.2
 
 # RSS feed parsing
 feedparser==6.0.14
